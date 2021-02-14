@@ -4,10 +4,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 import MovieModal from './Modal'
 import {
-    decrement,
-    increment,
     addToToWatch,
-    incrementAsync,
     selectCount,
     moveItem,
     reorderItem
@@ -31,9 +28,7 @@ const Table = () => {
 
     const saveBoard = async () => {
         try {
-            console.log(toWatch, '<---toWatch')
             await updateBoard({ toWatch, currentlyWatching, liked, disliked })
-            console.log('finished updating board')
         } catch (err) {
             console.log(err, '<--err')
         }

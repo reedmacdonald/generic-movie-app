@@ -4,10 +4,7 @@ import Modal from './Modal'
 import styled from 'styled-components'
 import { useSelector, useDispatch } from 'react-redux';
 import {
-    decrement,
-    increment,
     addToToWatch,
-    incrementAsync,
     selectCount,
 } from '../../features/movies/movieSlice';
 import { useHistory } from 'react-router-dom'
@@ -72,8 +69,7 @@ const Form = () => {
         if (!duplicate) {
             dispatch(addToToWatch(movie.data))
         }
-        setMovie('')
-        setMovieTitle('')
+        exit()
     }
     return (
         <Div>

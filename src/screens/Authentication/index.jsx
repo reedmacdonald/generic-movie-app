@@ -30,7 +30,7 @@ const Authentication = () => {
     const renderSignUp = () => {
         return (
             <div>
-                Already a member?
+                Not a member?
                 <div style={{ cursor: 'pointer', marginTop: '5px' }} onClick={() => { setIsLogin(!isLogin) }}>
                     Sign Up
                 </div>
