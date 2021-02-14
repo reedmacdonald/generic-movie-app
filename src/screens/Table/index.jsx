@@ -12,14 +12,17 @@ import {
     moveItem,
     reorderItem
 } from '../../features/movies/movieSlice';
+import { toLightMode, toDarkMode, selectColor } from '../../features/colors/colors'
 import { Back, InnerDivs, Movies, Poster, Title, Actors, Img, GlobalStyle } from './styles'
 
 
 
 const Table = () => {
     const { toWatch, currentlyWatching, liked, disliked } = useSelector(selectCount);
+    const mode = useSelector(selectColor)
     const dispatch = useDispatch();
     const [movie, setMovie] = React.useState('')
+    console.log(mode, '<---mode')
     const onDragEnd = (success) => {
         if (success.source.droppableId == success.destination.droppableId) {
             dispatch(reorderItem(success))

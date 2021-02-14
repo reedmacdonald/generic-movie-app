@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import styled from 'styled-components'
+import styled, { ThemeProvider } from 'styled-components'
 import Image from '../images/hollywood.jpg'
 import { auth } from '../firebase/firebase'
 import { useHistory } from 'react-router-dom'
@@ -29,6 +29,7 @@ place-items:center;
 
 const Layout = ({ children }) => {
     const [userLoggedIn, setUserLoggedIn] = useState(true)
+    const [isDark, setIsDark] = React.useState(false)
     const history = useHistory()
     const logOut = () => {
         auth.signOut().then(() => {
