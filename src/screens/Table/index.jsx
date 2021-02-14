@@ -12,6 +12,7 @@ import {
     moveItem,
     reorderItem
 } from '../../features/movies/movieSlice';
+import { updateBoard } from '../../functions';
 import { toLightMode, toDarkMode, selectColor } from '../../features/colors/colors'
 import { Back, InnerDivs, Movies, Poster, Title, Actors, Img, GlobalStyle } from './styles'
 
@@ -22,7 +23,23 @@ const Table = () => {
     const mode = useSelector(selectColor)
     const dispatch = useDispatch();
     const [movie, setMovie] = React.useState('')
-    console.log(mode, '<---mode')
+
+
+
+    React.useEffect(() => { saveBoard() }, [toWatch, currentlyWatching, liked, disliked])
+
+
+    const saveBoard = async () => {
+        try {
+            console.log(toWatch, '<---toWatch')
+            await updateBoard({ toWatch, currentlyWatching, liked, disliked })
+            console.log('finished updating board')
+        } catch (err) {
+            console.log(err, '<--err')
+        }
+
+    }
+
     const onDragEnd = (success) => {
         if (success.source.droppableId == success.destination.droppableId) {
             dispatch(reorderItem(success))

@@ -3,6 +3,11 @@ import styled, { ThemeProvider } from 'styled-components'
 import Image from '../images/hollywood.jpg'
 import { auth } from '../firebase/firebase'
 import { useHistory } from 'react-router-dom'
+import { useSelector, useDispatch } from 'react-redux';
+import { getUser } from '../functions'
+import {
+    setAllItems
+} from '../features/movies/movieSlice';
 
 
 const Background = styled.div`
@@ -30,20 +35,23 @@ place-items:center;
 const Layout = ({ children }) => {
     const [userLoggedIn, setUserLoggedIn] = useState(true)
     const [isDark, setIsDark] = React.useState(false)
+    const dispatch = useDispatch()
     const history = useHistory()
     const logOut = () => {
         auth.signOut().then(() => {
-            console.log('successfully logged out')
+
         }).catch((error) => {
             console.log(error, '<---err')
         });
     }
-    auth.onAuthStateChanged(function (user) {
+
+    auth.onAuthStateChanged(async (user) => {
         if (user) {
-            // User is signed in.
             setUserLoggedIn(true)
+            const data = await getUser(user.displayName)
+            console.log(data, '<----info')
+            dispatch(setAllItems(data))
         } else {
-            // No user is signed in.
             setUserLoggedIn(false)
         }
     });

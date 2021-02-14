@@ -6,14 +6,14 @@ import { useHistory } from 'react-router-dom'
 const Register = () => {
     const [email, setEmail] = useState('')
     const [error, setError] = useState('')
+    const [username, setUsername] = useState('')
     const [password, setPassword] = useState('')
     const history = useHistory()
     const goToMovies = () => { history.push('/add-movies') }
     const register = async () => {
         try {
-            await signUp(email, password, goToMovies)
+            await signUp(email, password, username, goToMovies)
         } catch (err) {
-            console.log('did I get here?')
             setError(err.message)
         }
 
@@ -30,6 +30,11 @@ const Register = () => {
                 value={password}
                 onChange={(e) => { setPassword(e.target.value) }}
                 placeholder='Password'
+            />
+            <Input
+                value={username}
+                onChange={(e) => { setUsername(e.target.value) }}
+                placeholder='Username'
             />
             {error && <div>{error}</div>}
             <Button onClick={register}>Register</Button>

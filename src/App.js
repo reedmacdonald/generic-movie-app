@@ -11,6 +11,7 @@ import Layout from '../src/common/Layout'
 import Movies from './screens/Movies'
 import Table from './screens/Table'
 import { Component } from "react";
+import { getUser } from '../src/functions'
 
 const App = () => {
 

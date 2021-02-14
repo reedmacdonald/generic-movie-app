@@ -27,12 +27,22 @@ export const movieSlice = createSlice({
         moveItem: (state, action) => {
             state.movieList[action.payload.destination.droppableId].splice(action.payload.destination.index, 0, state.movieList[action.payload.fromLocation][action.payload.fromSpot])
             state.movieList[action.payload.fromLocation].splice(action.payload.fromSpot, 1)
-
         },
+        setAllItems: (state, action) => {
+            console.log(action.payload, '<----payload')
+            const entries = Object.entries(action.payload)
+            console.log(entries, '<---entries')
+            entries.forEach((entry) => {
+                console.log(entry, '<---entry')
+                state.movieList[entry[0]] = entry[1]
+
+            })
+        },
+
     },
 });
 
-export const { increment, decrement, addToToWatch, moveItem, reorderItem } = movieSlice.actions;
+export const { setAllItems, increment, decrement, addToToWatch, moveItem, reorderItem } = movieSlice.actions;
 
 // The function below is called a thunk and allows us to perform async logic. It
 // can be dispatched like a regular action: `dispatch(incrementAsync(10))`. This
