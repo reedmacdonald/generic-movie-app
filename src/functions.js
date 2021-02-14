@@ -4,7 +4,7 @@ import firebase, { auth } from './firebase/firebase'
 
 const Url = (movieTitle) => {
     const newTitle = movieTitle.split(' ').join('+')
-    return `http://www.omdbapi.com/?t=${newTitle}&apikey=${SECRETS.MOVIES_API}`
+    return `https://www.omdbapi.com/?t=${newTitle}&apikey=${SECRETS.MOVIES_API}`
 }
 export const getMovies = async (movieTitle) => {
     const result = await get(Url(movieTitle))
