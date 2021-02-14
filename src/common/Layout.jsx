@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import styled from 'styled-components'
 import Image from '../images/hollywood.jpg'
 import { auth } from '../firebase/firebase'
+import { useHistory } from 'react-router-dom'
 
 
 const Background = styled.div`
@@ -27,7 +28,8 @@ place-items:center;
 
 
 const Layout = ({ children }) => {
-    const [userLoggedIn, setUserLoggedIn] = useState(false)
+    const [userLoggedIn, setUserLoggedIn] = useState(true)
+    const history = useHistory()
     const logOut = () => {
         auth.signOut().then(() => {
             console.log('successfully logged out')
@@ -44,6 +46,12 @@ const Layout = ({ children }) => {
             setUserLoggedIn(false)
         }
     });
+    React.useEffect(() => {
+        if (!userLoggedIn) {
+            console.log('user is not logged in')
+            history.push('/')
+        }
+    }, [userLoggedIn])
     return (
         <React.Fragment>
             {userLoggedIn && <div style={{ position: 'absolute', zIndex: 999999, cursor: 'pointer' }} onClick={logOut}>Logout</div>}

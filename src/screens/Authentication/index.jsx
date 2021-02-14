@@ -1,6 +1,8 @@
-import React from 'react'
+import React, { Fragment } from 'react'
 import styled from 'styled-components'
 import firebase, { auth } from '../../firebase/firebase'
+import Login from './Login'
+import Register from './Register'
 
 const Main = styled.div`
 width:50%;
@@ -10,27 +12,35 @@ place-items:center;
 background-color:white;
 border-radius:14px;
 `
-const signUp = (email, password) => {
-    auth.createUserWithEmailAndPassword(email, password)
-        .then((userCredential) => {
-            // Signed in 
-            var user = userCredential.user;
-            console.log(userCredential, '<---userCredential')
-            // ...
-        })
-        .catch((error) => {
-            var errorCode = error.code;
-            var errorMessage = error.message;
-            console.log(error, '<----error')
-            // ..
-        });
-}
 
 const Authentication = () => {
+    const [isLogin, setIsLogin] = React.useState(true)
+    const renderLogin = () => {
+        return (
+            <div style={{ height: '30px', display: 'block' }}>
+
+                Already a member?
+
+                <div style={{ cursor: 'pointer', marginTop: '5px' }} onClick={() => { setIsLogin(!isLogin) }}>
+                    Login
+                </div>
+            </div>
+        )
+    }
+    const renderSignUp = () => {
+        return (
+            <div>
+                Already a member?
+                <div style={{ cursor: 'pointer', marginTop: '5px' }} onClick={() => { setIsLogin(!isLogin) }}>
+                    Sign Up
+                </div>
+            </div >
+        )
+    }
     return (
         <Main>
-            <h1>Login</h1>
-            <button onClick={() => { signUp('reedpmacdonald@gmail.com', 'Hoffman1!') }}>Login</button>
+            {isLogin ? <Login /> : <Register />}
+            {isLogin ? renderSignUp() : renderLogin()}
         </Main>
     )
 }
