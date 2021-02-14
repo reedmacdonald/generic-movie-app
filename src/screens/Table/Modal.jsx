@@ -49,7 +49,7 @@ const MovieModal = ({ movie, onSave, exit, dontShow, otherBoard, otherBoardFunct
                 <h5>Plot: {Plot}</h5>
                 <h5>Metascrore: {Metascore}</h5>
                 <Button onClick={exit}>Dismiss</Button>
-                {!otherBoard && <Button onClick={() => { }}>Add to My Board</Button>}
+                {!otherBoard && <Button onClick={() => { }}>Remove</Button>}
                 {otherBoard && <Button onClick={() => { otherBoardFunction(movie) }}>Add to my Board</Button>}
             </Modal>
         </Fragment>
