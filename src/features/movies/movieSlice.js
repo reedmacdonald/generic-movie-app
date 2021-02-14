@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { containsObject } from '../../functions'
+import { containsObject, array_move } from '../../functions'
 
 export const movieSlice = createSlice({
     name: 'movie',
@@ -13,10 +13,6 @@ export const movieSlice = createSlice({
     },
     reducers: {
         increment: state => {
-            // Redux Toolkit allows us to write "mutating" logic in reducers. It
-            // doesn't actually mutate the state because it uses the Immer library,
-            // which detects changes to a "draft state" and produces a brand new
-            // immutable state based off those changes
             state.movieList.toWatch.push('idk');
         },
         decrement: state => {
@@ -25,10 +21,18 @@ export const movieSlice = createSlice({
         addToToWatch: (state, action) => {
             state.movieList.toWatch.push(action.payload);
         },
+        reorderItem: (state, action) => {
+            array_move(state.movieList[action.payload.destination.droppableId], action.payload.source.index, action.payload.destination.index)
+        },
+        moveItem: (state, action) => {
+            state.movieList[action.payload.destination.droppableId].splice(action.payload.destination.index, 0, state.movieList[action.payload.fromLocation][action.payload.fromSpot])
+            state.movieList[action.payload.fromLocation].splice(action.payload.fromSpot, 1)
+
+        },
     },
 });
 
-export const { increment, decrement, addToToWatch } = movieSlice.actions;
+export const { increment, decrement, addToToWatch, moveItem, reorderItem } = movieSlice.actions;
 
 // The function below is called a thunk and allows us to perform async logic. It
 // can be dispatched like a regular action: `dispatch(incrementAsync(10))`. This

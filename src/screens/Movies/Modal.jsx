@@ -36,7 +36,7 @@ cursor:pointer
 
 `
 
-const MovieModal = ({ movie, onSave, exit }) => {
+const MovieModal = ({ movie, onSave, exit, dontShow }) => {
     const { Title, Poster, Actors, Year, Plot, Metascore } = movie
     return (
         <Fragment>
@@ -49,10 +49,9 @@ const MovieModal = ({ movie, onSave, exit }) => {
                 <h4>Year: {Year}</h4>
                 <h5>Plot: {Plot}</h5>
                 <h5>Metascrore: {Metascore}</h5>
-                <Button onClick={onSave}>Add to List</Button>
+                {!dontShow && <Button onClick={onSave}>Add to List</Button>}
                 <Button onClick={exit}>Dismiss</Button>
             </Modal>
-
         </Fragment>
     )
 }

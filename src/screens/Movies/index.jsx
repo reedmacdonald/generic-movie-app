@@ -50,7 +50,6 @@ const Form = () => {
     const [movie, setMovie] = React.useState(false)
     const [error, setError] = React.useState('')
     const history = useHistory()
-    console.log(count, '<---count')
     const onSee = async (value) => {
         try {
             const result = await getMovies(value)
