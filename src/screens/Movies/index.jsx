@@ -1,7 +1,19 @@
 import React from 'react'
-import { getMovies } from '../../functions'
+import { getMovies, containsObject } from '../../functions'
 import Modal from './Modal'
 import styled from 'styled-components'
+import { useSelector, useDispatch } from 'react-redux';
+import {
+    decrement,
+    increment,
+    addToToWatch,
+    incrementAsync,
+    selectCount,
+} from '../../features/movies/movieSlice';
+import { useHistory } from 'react-router-dom'
+
+
+
 const MoviesHolder = styled.div`
 width:50%;
 background-color:white;
@@ -31,29 +43,49 @@ const Movies = () => {
 }
 export default Movies
 const Form = () => {
+    const count = useSelector(selectCount);
+    const dispatch = useDispatch();
     const [movieTitle, setMovieTitle] = React.useState('')
     const [showModal, setShowModal] = React.useState(false)
     const [movie, setMovie] = React.useState(false)
-    const onSave = async (value) => {
+    const [error, setError] = React.useState('')
+    const history = useHistory()
+    console.log(count, '<---count')
+    const onSee = async (value) => {
         try {
             const result = await getMovies(value)
-            console.log(result, '<----result')
-            setMovie(result)
+            if (result.data.Response !== 'False') {
+                setMovie(result)
+                setError('')
+            } else {
+                setError(result.data.Error)
+            }
         } catch (err) {
             console.log(err, '<---err')
         }
     }
-    React.useEffect(() => { movie && setShowModal(true) }, [movie])
-    console.log(showModal, '<---showModal')
-
+    const exit = () => {
+        setMovie('')
+        setMovieTitle('')
+    }
+    const onSave = () => {
+        const duplicate = count.toWatch.some((x) => { return x.Title == movie.data.Title })
+        if (!duplicate) {
+            dispatch(addToToWatch(movie.data))
+        }
+        setMovie('')
+        setMovieTitle('')
+    }
     return (
         <Div>
-            {showModal && <Modal movie={movie.data} />}
+            {movie && <Modal onSave={onSave} movie={movie.data} exit={exit} />}
             <H4>Choose some movies that you may want to watch. Some of our favories are below, but feel free to choose your own too!</H4>
             <Div>
                 <Input value={movieTitle} onChange={(e) => { setMovieTitle(e.target.value) }} />
             </Div>
-            <Button onClick={() => { onSave(movieTitle) }}>See Movie</Button>
+            <Button onClick={() => { onSee(movieTitle) }}>See Movie</Button>
+            {count.toWatch.length > 0 && <Button onClick={() => { history.push('/table') }}>Continue</Button>}
+            {error && <div>{error}</div>}
         </Div>
     )
 }

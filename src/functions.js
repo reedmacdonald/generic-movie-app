@@ -20,3 +20,12 @@ export const login = async (email, password, callback) => {
     callback()
 
 }
+export const containsObject = (obj, list) => {
+    var x;
+    for (x in list) {
+        if (list.hasOwnProperty(x) && list[x] === obj) {
+            return true;
+        }
+    }
+    return false;
+}
