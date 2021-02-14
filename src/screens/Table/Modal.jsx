@@ -35,7 +35,7 @@ cursor:pointer
 
 `
 
-const MovieModal = ({ movie, onSave, exit, dontShow }) => {
+const MovieModal = ({ movie, onSave, exit, dontShow, otherBoard, otherBoardFunction }) => {
     const { Title, Poster, Actors, Year, Plot, Metascore } = movie
     return (
         <Fragment>
@@ -49,7 +49,8 @@ const MovieModal = ({ movie, onSave, exit, dontShow }) => {
                 <h5>Plot: {Plot}</h5>
                 <h5>Metascrore: {Metascore}</h5>
                 <Button onClick={exit}>Dismiss</Button>
-                <Button onClick={() => { }}>Remove from Board</Button>
+                {!otherBoard && <Button onClick={() => { }}>Add to My Board</Button>}
+                {otherBoard && <Button onClick={() => { otherBoardFunction(movie) }}>Add to my Board</Button>}
             </Modal>
         </Fragment>
     )

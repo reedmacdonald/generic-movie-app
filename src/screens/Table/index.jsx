@@ -1,10 +1,8 @@
 import React from 'react'
-import styled, { createGlobalStyle } from 'styled-components'
 import { useSelector, useDispatch } from 'react-redux';
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 import MovieModal from './Modal'
 import {
-    addToToWatch,
     selectCount,
     moveItem,
     reorderItem
@@ -13,18 +11,13 @@ import { updateBoard } from '../../functions';
 import { toLightMode, toDarkMode, selectColor } from '../../features/colors/colors'
 import { Back, InnerDivs, Movies, Poster, Title, Actors, Img, GlobalStyle } from './styles'
 
-
-
 const Table = () => {
     const { toWatch, currentlyWatching, liked, disliked } = useSelector(selectCount);
     const mode = useSelector(selectColor)
     const dispatch = useDispatch();
     const [movie, setMovie] = React.useState('')
 
-
-
     React.useEffect(() => { saveBoard() }, [toWatch, currentlyWatching, liked, disliked])
-
 
     const saveBoard = async () => {
         try {
@@ -32,7 +25,6 @@ const Table = () => {
         } catch (err) {
             console.log(err, '<--err')
         }
-
     }
 
     const onDragEnd = (success) => {
@@ -72,7 +64,6 @@ const Table = () => {
     }
     const exit = () => {
         setMovie('')
-
     }
     const elements = [
         { name: 'toWatch', description: 'To Watch:', element: toWatch },

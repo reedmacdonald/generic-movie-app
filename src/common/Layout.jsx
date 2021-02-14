@@ -44,13 +44,21 @@ const Layout = ({ children }) => {
             console.log(error, '<---err')
         });
     }
+    const defaultData = {
+        toWatch: [],
+        currentlyWatching: [],
+        liked: [],
+        disliked: []
+    }
 
     auth.onAuthStateChanged(async (user) => {
         if (user) {
             setUserLoggedIn(true)
-            const data = await getUser(user.displayName)
-            console.log(data, '<----info')
-            dispatch(setAllItems(data))
+            if (user.displayName) {
+                const data = await getUser(user.displayName)
+                console.log(data, '<----info')
+                dispatch(setAllItems(data || defaultData))
+            }
         } else {
             setUserLoggedIn(false)
         }
