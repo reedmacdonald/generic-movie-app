@@ -83,6 +83,11 @@ const Form = () => {
                 <Input value={movieTitle} onChange={(e) => { setMovieTitle(e.target.value) }} />
             </Div>
             <Button onClick={() => { onSee(movieTitle) }}>See Movie</Button>
+            {count.toWatch.length > 0 &&
+                <React.Fragment>
+                    <h3>Your movies:</h3>
+                    {count.toWatch.map((item) => { return <div>{item.Title}</div> })}
+                </React.Fragment>}
             {count.toWatch.length > 0 && <Button onClick={() => { history.push('/table') }}>Continue</Button>}
             {error && <div>{error}</div>}
         </Div>
