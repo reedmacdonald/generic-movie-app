@@ -1,6 +1,6 @@
 import React, { Fragment } from 'react'
 import styled from 'styled-components'
-import firebase, { auth } from '../../firebase/firebase'
+import firebase, { auth } from '../../firebase'
 import Login from './Login'
 import Register from './Register'
 

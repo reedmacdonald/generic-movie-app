@@ -1,6 +1,6 @@
 import { get } from 'axios'
 import * as SECRETS from './secrets'
-import firebase, { auth } from './firebase/firebase'
+import firebase, { auth } from './firebase'
 
 const Url = (movieTitle) => {
     const newTitle = movieTitle.split(' ').join('+')

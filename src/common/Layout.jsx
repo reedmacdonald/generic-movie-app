@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import styled, { ThemeProvider } from 'styled-components'
 import Image from '../images/hollywood.jpg'
-import { auth } from '../firebase/firebase'
+import { auth } from '../firebase'
 import { useHistory } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux';
 import { getUser } from '../functions'
@@ -56,7 +56,6 @@ const Layout = ({ children }) => {
             setUserLoggedIn(true)
             if (user.displayName) {
                 const data = await getUser(user.displayName)
-                console.log(data, '<----info')
                 dispatch(setAllItems(data || defaultData))
             }
         } else {
@@ -65,7 +64,6 @@ const Layout = ({ children }) => {
     });
     React.useEffect(() => {
         if (!userLoggedIn) {
-            console.log('user is not logged in')
             history.push('/')
         }
     }, [userLoggedIn])
