@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { containsObject, array_move } from '../../functions'
+import { array_move } from '../../functions'
 
 export const colorSlice = createSlice({
     name: 'color',

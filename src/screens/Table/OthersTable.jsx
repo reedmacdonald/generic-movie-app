@@ -70,16 +70,10 @@ const OthersTable = () => {
                 <GlobalStyle />
                 {movie && <MovieModal otherBoardFunction={addToMyMovies} otherBoard dontShow movie={movie} exit={exit} />}
                 {elements.map((element) => {
-                    console.log(element, '<---element')
                     return (<InnerDivs >
                         <h3>{element.description}</h3>
                         {element.element.map((movie, index) => {
-                            return (<Movies onDoubleClick={() => { setMovie(movie) }}>
-                                <Poster ><Img src={movie.Poster} /></Poster>
-                                <Actors>{movie.Actors}</Actors>
-                                <Title>{movie.Title}</Title>
-                                <Title />
-                            </Movies>)
+                            return (<Card movie={movie} setMovie={setMovie} />)
                         })}
                     </InnerDivs>)
                 })
@@ -89,3 +83,12 @@ const OthersTable = () => {
     )
 }
 export default OthersTable
+
+const Card = ({ movie, setMovie }) => {
+    return (<Movies onDoubleClick={() => { setMovie(movie) }}>
+        <Poster ><Img src={movie.Poster} /></Poster>
+        <Actors>{movie.Actors}</Actors>
+        <Title>{movie.Title}</Title>
+        <Title />
+    </Movies>)
+}

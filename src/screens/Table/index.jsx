@@ -5,7 +5,9 @@ import MovieModal from './Modal'
 import {
     selectCount,
     moveItem,
-    reorderItem
+    reorderItem,
+    addComment,
+    removeItem
 } from '../../features/movies/movieSlice';
 import { updateBoard } from '../../functions';
 import { toLightMode, toDarkMode, selectColor } from '../../features/colors/colors'
@@ -26,8 +28,15 @@ const Table = () => {
             console.log(err, '<--err')
         }
     }
+    const remove = (movie) => {
+        dispatch(removeItem(movie))
+        exit()
+    }
 
     const onDragEnd = (success) => {
+        if (!success.destination) {
+            return
+        }
         if (success.source.droppableId == success.destination.droppableId) {
             dispatch(reorderItem(success))
         } else {
@@ -65,6 +74,10 @@ const Table = () => {
     const exit = () => {
         setMovie('')
     }
+    const leaveComment = (thisMovie) => {
+        dispatch(addComment(thisMovie))
+        setMovie(thisMovie)
+    }
     const elements = [
         { name: 'toWatch', description: 'To Watch:', element: toWatch },
         { name: 'currentlyWatching', description: 'Currently Watching:', element: currentlyWatching },
@@ -74,21 +87,21 @@ const Table = () => {
     return (
         <Back>
             <GlobalStyle />
-            {movie && <MovieModal dontShow movie={movie} exit={exit} />}
+            {movie && <MovieModal addComment={leaveComment} dontShow movie={movie} exit={exit} remove={remove} />}
             <DragDropContext onDragEnd={(success) => { onDragEnd(success) }}>
                 {elements.map((element) => {
                     return <Droppable droppableId={element.name}>
                         {(provided, snapshot) => (
                             <InnerDivs ref={provided.innerRef}>
                                 <h3>{element.description}</h3>
-                                {element.element.length > 0 && element.element.map((movie, index) => {
+                                {element.element.map((movie, index) => {
                                     return <Draggable
                                         key={movie?.Title}
                                         draggableId={movie?.Title}
                                         movie={movie}
                                         index={index}>
                                         {(provided, snapshot) => (
-                                            <Movies onDoubleClick={() => { setMovie(movie) }}
+                                            <Movies onDoubleClick={() => { setMovie({ ...movie, where: element.name, index }) }}
                                                 ref={provided.innerRef}
                                                 {...provided.draggableProps}
                                                 {...provided.dragHandleProps}>

@@ -28,11 +28,17 @@ export const movieSlice = createSlice({
                 state.movieList[entry[0]] = entry[1]
             })
         },
+        removeItem: (state, action) => {
+            state.movieList[action.payload.where].splice(action.payload.index, 1)
+        },
+        addComment: (state, action) => {
+            state.movieList[action.payload.where][action.payload.index] = action.payload
+        }
 
     },
 });
 
-export const { setAllItems, addToToWatch, moveItem, reorderItem } = movieSlice.actions;
+export const { addComment, setAllItems, addToToWatch, moveItem, reorderItem, removeItem } = movieSlice.actions;
 
 export const selectCount = state => {
     return state.movies.movieList

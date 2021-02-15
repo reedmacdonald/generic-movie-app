@@ -1,5 +1,5 @@
 import React from 'react'
-import { getMovies, containsObject } from '../../functions'
+import { getMovies } from '../../functions'
 import Modal from './Modal'
 import styled from 'styled-components'
 import { useSelector, useDispatch } from 'react-redux';

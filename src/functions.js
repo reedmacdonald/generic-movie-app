@@ -21,15 +21,7 @@ export const login = async (email, password, callback) => {
     await auth.signInWithEmailAndPassword(email, password)
     callback()
 }
-export const containsObject = (obj, list) => {
-    var x;
-    for (x in list) {
-        if (list.hasOwnProperty(x) && list[x] === obj) {
-            return true;
-        }
-    }
-    return false;
-}
+
 export const array_move = (arr, old_index, new_index) => {
     if (new_index >= arr.length) {
         var k = new_index - arr.length + 1;
@@ -44,7 +36,6 @@ const db = firebase.firestore()
 
 export const updateBoard = (info) => {
     const user = firebase.auth().currentUser
-    user && console.log(user.displayName, '<---displayName')
     user && db.collection("users").doc(user.displayName).set(info)
 }
 export const getUser = async (displayName) => {
