@@ -40,8 +40,7 @@ const MovieModal = ({ movie, onSave, exit, dontShow, otherBoard, otherBoardFunct
     const [comment, setComment] = React.useState('')
     const [editing, setEditing] = React.useState(false)
     const [adding, setAdding] = React.useState(true)
-    console.log(movie, '<---movie')
-    console.log(userComment, '<---userComment')
+
     return (
         <Fragment>
             <GloblStyle />

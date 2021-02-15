@@ -11,7 +11,7 @@ import {
 } from '../../features/movies/movieSlice';
 import { updateBoard } from '../../functions';
 import { toLightMode, toDarkMode, selectColor } from '../../features/colors/colors'
-import { Back, InnerDivs, Movies, Poster, Title, Actors, Img, GlobalStyle } from './styles'
+import { Back, InnerDivs, Movies, Poster, Title, Info, Img, GlobalStyle, Category, Response, Header, HeaderHolder } from './styles'
 
 const Table = () => {
     const { toWatch, currentlyWatching, liked, disliked } = useSelector(selectCount);
@@ -93,8 +93,9 @@ const Table = () => {
                     return <Droppable droppableId={element.name}>
                         {(provided, snapshot) => (
                             <InnerDivs ref={provided.innerRef}>
-                                <h3>{element.description}</h3>
+                                <HeaderHolder><Header>{element.description}</Header></HeaderHolder>
                                 {element.element.map((movie, index) => {
+                                    console.log(movie, '<---movie')
                                     return <Draggable
                                         key={movie?.Title}
                                         draggableId={movie?.Title}
@@ -106,7 +107,10 @@ const Table = () => {
                                                 {...provided.draggableProps}
                                                 {...provided.dragHandleProps}>
                                                 <Poster ><Img src={movie.Poster} /></Poster>
-                                                <Actors>{movie.Actors}</Actors>
+                                                <Info>
+                                                    <div><Category>Genre:</Category><Response>{movie.Genre}</Response></div>
+                                                    <div><Category>Director:</Category><Response>{movie.Director}</Response></div>
+                                                </Info>
                                                 <Title>{movie.Title}</Title>
                                                 <Title />
                                             </Movies>
