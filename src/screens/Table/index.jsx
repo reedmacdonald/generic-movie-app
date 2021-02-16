@@ -89,13 +89,12 @@ const Table = () => {
             <GlobalStyle />
             {movie && <MovieModal addComment={leaveComment} dontShow movie={movie} exit={exit} remove={remove} />}
             <DragDropContext onDragEnd={(success) => { onDragEnd(success) }}>
-                {elements.map((element) => {
+                {elements.map((element, index) => {
                     return <Droppable droppableId={element.name}>
                         {(provided, snapshot) => (
                             <InnerDivs ref={provided.innerRef}>
-                                <HeaderHolder><Header>{element.description}</Header></HeaderHolder>
+                                <HeaderHolder><Header index={index}>{element.description}</Header></HeaderHolder>
                                 {element.element.map((movie, index) => {
-                                    console.log(movie, '<---movie')
                                     return <Draggable
                                         key={movie?.Title}
                                         draggableId={movie?.Title}

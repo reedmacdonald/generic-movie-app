@@ -11,13 +11,30 @@ height:90vh;
 export const InnerDivs = styled.div`
 margin:10px;
 overflow:scroll;
-background:${props => props.light ? 'white' : "#383A56"}
+background:${props => props.light ? 'white' : "#383A56"};
+border-radius:10px
 `
 export const Header = styled.h3`
 border-radius:10px;
 background:#383A56;
 padding:12px 0;
 margin:10px 0;
+font-family:Lato;
+font-weight:600;
+font-size:16px;
+line-height:24px;
+color:${props => {
+        switch (props.index) {
+            case 0:
+                return 'white';
+            case 1:
+                return '#4DACF3';
+            case 2:
+                return '#FEBA24';
+            case 3:
+                return "#4DACF3"
+        }
+    }}
 `
 
 export const HeaderHolder = styled.div`
@@ -34,7 +51,7 @@ grid-template-columns: repeat(5, 1fr);
 grid-template-rows: repeat(3, 1fr);
 grid-column-gap: 0px;
 grid-row-gap: 0px; 
-max-height:15vh;
+max-height:13vh;
 margin:10px;
 border-radius:14px;
 background-color:#ECF1FA;
@@ -47,6 +64,7 @@ grid-area: 1 / 4 / 4 / 6;
 border-radius:10px;
 margin:5px;
 margin-bottom:5px;
+width:90px;
 
 
 `
@@ -92,7 +110,7 @@ display:inline;
 `
 
 export const Img = styled.img`
-width: 100%; 
+width: 90px; 
 object-Fit: cover;
 height:100%;
 border-radius:10px;

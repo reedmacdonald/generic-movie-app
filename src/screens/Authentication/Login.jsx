@@ -3,6 +3,8 @@ import React, { Fragment, useState } from 'react'
 import styled from 'styled-components'
 import { Input, Button } from '../../common/Components'
 import { login } from '../../functions'
+import { Heading } from './Components'
+
 const Login = () => {
     const [email, setEmail] = React.useState('')
     const [password, setPassword] = React.useState('')
@@ -16,7 +18,8 @@ const Login = () => {
     }
     return (
         <Fragment>
-            <h1>Welcome Back</h1>
+            <Heading>Welcome Back</Heading>
+
             <Input
                 value={email}
                 onChange={(e) => { setEmail(e.target.value) }}
@@ -26,9 +29,11 @@ const Login = () => {
                 value={password}
                 onChange={(e) => { setPassword(e.target.value) }}
                 placeholder='Password'
+                type='password'
             />
             {error && <div>{error}</div>}
-            <Button>login</Button>
+            <Button>Login</Button>
+
         </Fragment>
     )
 }

@@ -1,39 +1,10 @@
 import React, { Fragment } from 'react'
-import { Button } from '../../common/Components'
+
 import styled, { createGlobalStyle } from 'styled-components'
+import { Modal, InnerModal, PosterHolder, LeftSide, RightSide, Ex } from "./ModalStyle"
+import { Button, SecondaryButton, SecondaryInput, Input } from '../../common/Components'
 
-const Modal = styled.div`
-position:absolute;
-width:60vw;
-left:50%;
-top:50%;
-min-Width:400px;
-transform:translate(-50%,-50%);
-background-color:grey;
-zIndex:999999999999999999999999;
-textAlign:center;
-max-heigt:70vh;
-overflow:scroll;
-padding:10px
-`
-const PosterHolder = styled.div`
-width: 20%; 
-margin: 0 auto;
-min-width:200px
-`
-const GloblStyle = createGlobalStyle`
-*{
-    text-align:center
-}
-`
 
-const Ex = styled.div`
-position:absolute;
-top:10px;
-right:10px;
-cursor:pointer
-
-`
 
 const MovieModal = ({ movie, onSave, exit, dontShow, otherBoard, otherBoardFunction, remove, addComment }) => {
     const { Title, Poster, Actors, Year, Plot, Metascore, userComment, ...rest } = movie
@@ -42,47 +13,56 @@ const MovieModal = ({ movie, onSave, exit, dontShow, otherBoard, otherBoardFunct
     const [adding, setAdding] = React.useState(true)
 
     return (
-        <Fragment>
-            <GloblStyle />
-            <Modal >
-                <Ex onClick={exit}>x</Ex>
-                <h1>{Title}</h1>
-                <PosterHolder><img style={{ width: '100%' }} src={Poster} /></PosterHolder>
-                <h4>Starring: {Actors}</h4>
-                <h4>Year: {Year}</h4>
-                <h5>Plot: {Plot}</h5>
-                <h5>Metascrore: {Metascore}</h5>
-                {!otherBoard && <Button onClick={() => { remove(rest) }}>Remove</Button>}
-                {otherBoard && <Button onClick={() => { otherBoardFunction(movie) }}>Add to my Board</Button>}
+        <Modal >
+            <Ex onClick={exit}>x</Ex>
+            <LeftSide>
+                <PosterHolder><img style={{ borderRadius: "10px" }} src={Poster} /></PosterHolder>
                 {!otherBoard && !userComment &&
-                    <Fragment><input value={comment} onChange={(e) => { setComment(e.target.value) }} placeholder='Comment' />
-                        <button onClick={() => {
-                            addComment({ ...movie, userComment: comment })
-                            setAdding(false)
-                        }}> Adding Comment</button>
-                    </Fragment>
+                    <div><SecondaryInput placeholder='Add Comment' id='comment' value={comment} onChange={(e) => { setComment(e.target.value) }} placeholder='Add Comment' /></div>
                 }
                 {userComment && !editing &&
-                    <React.Fragment>
-                        <p>{userComment}</p>
-                        {!otherBoard &&
-                            <button onClick={() => {
-                                setEditing(true)
-                                setComment(userComment)
-                            }}>Edit</button>}
-                    </React.Fragment>
+                    <p>{userComment}</p>
+
                 }
                 {editing &&
-                    <Fragment>
-                        <input value={comment} onChange={(e) => { setComment(e.target.value) }} placeholder='Comment' />
-                        <button onClick={() => {
-                            addComment({ ...movie, userComment: comment })
-                            setEditing(false)
-                        }}> Edit Comment</button>
-                    </Fragment>
+                    <div><SecondaryInput id='comment' value={comment} onChange={(e) => { setComment(e.target.value) }} placeholder='Add Comment' /></div>
                 }
-            </Modal>
-        </Fragment>
+            </LeftSide>
+            <RightSide>
+                <h1 id='title'>{Title}</h1>
+                <h5 id='plot'>{Plot}</h5>
+                <h5><span>Genre:</span> {movie.Genre}</h5>
+                <h5><span>Starring:</span> {Actors}</h5>
+                <h5><span>Director:</span> {movie.Director}</h5>
+                <h5><span>Writer:</span> {movie.Writer}</h5>
+                <h5><span>Language:</span> {movie.Language}</h5>
+                <h5><span>Release Date:</span> {movie.Released}</h5>
+                <h5><span>Box Office:</span> {movie.BoxOffice}</h5>
+                <h5><span>Metascrore:</span> {Metascore}</h5>
+                <div id='buttonHolder'>
+
+                    {!otherBoard && !userComment && <SecondaryButton
+                        onClick={() => {
+                            addComment({ ...movie, userComment: comment })
+                            setAdding(false)
+                        }}
+                    > Comment</SecondaryButton>}
+                    {userComment && !editing && !otherBoard && <SecondaryButton
+                        onClick={() => {
+                            setEditing(true)
+                            setComment(userComment)
+                        }}
+                    > Edit Comment</SecondaryButton>}
+                    {editing && <SecondaryButton onClick={() => {
+                        addComment({ ...movie, userComment: comment })
+                        setEditing(false)
+                    }}>Save</SecondaryButton>}
+                    {!otherBoard && <Button onClick={() => { remove(rest) }}>Remove</Button>}
+                    {otherBoard && <Button onClick={() => { otherBoardFunction(movie) }}>Add to my Board</Button>}
+                </div>
+
+            </RightSide>
+        </Modal >
     )
 }
 export default MovieModal

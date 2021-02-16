@@ -19,6 +19,15 @@ background:${props => props.light ? 'F7F6FA' : "#24243A"};
 top:0;
 margin-top:0;
 `
+const Logout = styled.div`
+position: absolute;
+zIndex: 999999; 
+cursor: pointer;
+color:${props => props.light ? "#515887" : "#FFFFFF"};
+right:20px;
+top:20px;
+
+`
 
 
 
@@ -59,7 +68,7 @@ const Layout = ({ children }) => {
     }, [userLoggedIn])
     return (
         <React.Fragment>
-            {userLoggedIn && <div style={{ position: 'absolute', zIndex: 999999, cursor: 'pointer' }} onClick={logOut}>Logout</div>}
+            {userLoggedIn && <Logout style={{ position: 'absolute', zIndex: 999999, cursor: 'pointer' }} onClick={logOut}>Logout</Logout>}
             <Background >{children}</Background>
         </React.Fragment>
     )

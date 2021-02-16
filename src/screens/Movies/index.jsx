@@ -8,27 +8,45 @@ import {
     selectCount,
 } from '../../features/movies/movieSlice';
 import { useHistory } from 'react-router-dom'
+import { Input, Button, SecondaryButton } from '../../common/Components'
+import Suggestions from './Suggestions'
 
 
 
 const MoviesHolder = styled.div`
 width:50%;
-background-color:white;
 border-radius:14px;
 display:grid;
 place-items:center;
 min-height:50vh;
 `
-const Input = styled.input`
-border-radius: 6px;
-`;
-const Button = styled.button``
+
 const Div = styled.div`
 display:grid;
 place-items:center;
+margin:0 auto;
+*{
+margin-top:30px;
+}
 `
+const InnerDiv = styled.div`
+display:grid;
+place-items:center;
+margin:0 auto;
+width:35%;
+
+*{
+margin-top:30px;
+}
+`
+
 const H4 = styled.h4`
-text-align:center
+text-align:center;
+font-family:Lato;
+font-weight:600;
+font-size:22px;
+font-height:33px;
+color:${props => props.light ? 'black' : 'white'}
 `
 
 const Movies = () => {
@@ -51,6 +69,7 @@ const Form = () => {
         try {
             const result = await getMovies(value)
             if (result.data.Response !== 'False') {
+                console.log(result.data, '<---result')
                 setMovie(result)
                 setError('')
             } else {
@@ -65,27 +84,34 @@ const Form = () => {
         setMovieTitle('')
     }
     const onSave = () => {
-        const duplicate = count.toWatch.some((x) => { return x.Title == movie.data.Title })
+        let duplicate
+        console.log(movie, '<---movie')
+        if (!movie.data) {
+            duplicate = count.toWatch.some((x) => { return x.Title == movie.Title })
+        }
+        else { duplicate = count.toWatch.some((x) => { return x.Title == movie.data.Title }) }
+
         if (!duplicate) {
-            dispatch(addToToWatch(movie.data))
+            dispatch(addToToWatch(movie.data || movie))
         }
         exit()
     }
+    const showMovie = (input) => {
+        setMovie(input)
+    }
     return (
         <Div>
-            {movie && <Modal onSave={onSave} movie={movie.data} exit={exit} />}
+            {movie && <Modal onSave={onSave} movie={movie.data || movie} exit={exit} />}
             <H4>Choose some movies that you may want to watch. Some of our favories are below, but feel free to choose your own too!</H4>
-            <Div>
-                <Input value={movieTitle} onChange={(e) => { setMovieTitle(e.target.value) }} />
-            </Div>
-            <Button onClick={() => { onSee(movieTitle) }}>See Movie</Button>
-            {count.toWatch.length > 0 &&
-                <React.Fragment>
-                    <h3>Your movies:</h3>
-                    {count.toWatch.map((item) => { return <div>{item.Title}</div> })}
-                </React.Fragment>}
-            {count.toWatch.length > 0 && <Button onClick={() => { history.push('/table') }}>Continue</Button>}
-            {error && <div>{error}</div>}
+            <InnerDiv>
+                <Input placeholder='Name' value={movieTitle} onChange={(e) => { setMovieTitle(e.target.value) }} />
+                {error && <div>{error}</div>}
+                <Button onClick={() => { onSee(movieTitle) }}>Info</Button>
+                {count.toWatch.length > 0 && <SecondaryButton onClick={() => { history.push('/table') }}>Continue</SecondaryButton>}
+            </InnerDiv>
+            <Suggestions onSave={onSave} watch={count.toWatch} show={showMovie} />
+
+
         </Div>
     )
 }

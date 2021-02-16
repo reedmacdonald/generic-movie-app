@@ -3,6 +3,7 @@ import styled from 'styled-components'
 import { Input, Button } from '../../common/Components'
 import { signUp } from '../../functions'
 import { useHistory } from 'react-router-dom'
+import { Heading } from './Components'
 const Register = () => {
     const [email, setEmail] = useState('')
     const [error, setError] = useState('')
@@ -18,9 +19,11 @@ const Register = () => {
         }
 
     }
+
     return (
         <Fragment>
-            <h1>Get Started</h1>
+            <Heading>Get Started</Heading>
+
             <Input
                 value={email}
                 onChange={(e) => { setEmail(e.target.value) }}
@@ -30,6 +33,7 @@ const Register = () => {
                 value={password}
                 onChange={(e) => { setPassword(e.target.value) }}
                 placeholder='Password'
+                type='password'
             />
             <Input
                 value={username}
@@ -38,6 +42,7 @@ const Register = () => {
             />
             {error && <div>{error}</div>}
             <Button onClick={register}>Register</Button>
+
         </Fragment>
     )
 }

@@ -1,58 +1,44 @@
+
 import React, { Fragment } from 'react'
-import { Button } from '../../common/Components'
+
 import styled, { createGlobalStyle } from 'styled-components'
+import { Modal, InnerModal, PosterHolder, LeftSide, RightSide, Ex } from "../Table/ModalStyle"
+import { Button, SecondaryButton } from '../../common/Components'
 
-const Modal = styled.div`
-position:absolute;
-width:60vw;
-//height:30vh;
-left:50%;
-top:50%;
-min-Width:400px;
-transform:translate(-50%,-50%);
-background-color:grey;
-zIndex:999999999999999999999999;
-textAlign:center;
-max-heigt:70vh;
-overflow:scroll;
-padding:10px
-`
-const PosterHolder = styled.div`
-width: 20%; 
-margin: 0 auto;
-min-width:200px
-`
-const GloblStyle = createGlobalStyle`
-*{
-    text-align:center
-}
+const NewModal = styled(Modal)`
+padding-top:0
 `
 
-const Ex = styled.div`
-position:absolute;
-top:10px;
-right:10px;
-cursor:pointer
+const MovieModal = ({ movie, onSave, exit, dontShow, otherBoard, otherBoardFunction, remove, addComment }) => {
+    const { Title, Poster, Actors, Year, Plot, Metascore, userComment, ...rest } = movie
+    const [comment, setComment] = React.useState('')
+    const [editing, setEditing] = React.useState(false)
+    const [adding, setAdding] = React.useState(true)
 
-`
 
-const MovieModal = ({ movie, onSave, exit, dontShow }) => {
-    const { Title, Poster, Actors, Year, Plot, Metascore } = movie
     return (
-        <Fragment>
-            <GloblStyle />
-            <Modal >
-                <Ex onClick={exit}>x</Ex>
-                <h1>{Title}</h1>
-                <PosterHolder><img style={{ width: '100%' }} src={Poster} /></PosterHolder>
-                <h4>Starring: {Actors}</h4>
-                <h4>Year: {Year}</h4>
-                <h5>Plot: {Plot}</h5>
-                <h5>Metascrore: {Metascore}</h5>
-                {!dontShow && <Button onClick={onSave}>Add to List</Button>}
-                <Button onClick={exit}>Dismiss</Button>
-            </Modal>
-        </Fragment>
+        <NewModal >
+            <Ex onClick={exit}>x</Ex>
+            <LeftSide>
+                <PosterHolder><img src={Poster} /></PosterHolder>
+            </LeftSide>
+            <RightSide>
+                <h1 id='title'>{Title}</h1>
+                <h5 id='plot'>{Plot}</h5>
+                <h5><span>Genre:</span> {movie.Genre}</h5>
+                <h5><span>Starring:</span> {Actors}</h5>
+                <h5><span>Director:</span> {movie.Director}</h5>
+                <h5><span>Writer:</span> {movie.Writer}</h5>
+                <h5><span>Language:</span> {movie.Language}</h5>
+                <h5><span>Release Date:</span> {movie.Released}</h5>
+                <h5><span>Box Office:</span> {movie.BoxOffice}</h5>
+                <h5><span>Metascrore:</span> {Metascore}</h5>
+                <div id='buttonHolder'>
+                    <Button onClick={() => onSave(movie)}>Add to List</Button>
+                </div>
+
+            </RightSide>
+        </NewModal >
     )
 }
 export default MovieModal

@@ -8,7 +8,7 @@ import {
 } from '../../features/movies/movieSlice';
 import { getUser, updateBoard } from '../../functions'
 import { toLightMode, toDarkMode, selectColor } from '../../features/colors/colors'
-import { Back, InnerDivs, Movies, Poster, Title, Info, Img, GlobalStyle } from './styles'
+import { Back, InnerDivs, Movies, Poster, Title, Info, Img, GlobalStyle, Header, HeaderHolder } from './styles'
 
 
 
@@ -69,9 +69,9 @@ const OthersTable = () => {
             <Back>
                 <GlobalStyle />
                 {movie && <MovieModal otherBoardFunction={addToMyMovies} otherBoard dontShow movie={movie} exit={exit} />}
-                {elements.map((element) => {
+                {elements.map((element, index) => {
                     return (<InnerDivs >
-                        <h3>{element.description}</h3>
+                        <HeaderHolder><Header index={index}>{element.description}</Header></HeaderHolder>
                         {element.element.map((movie, index) => {
                             return (<Card movie={movie} setMovie={setMovie} />)
                         })}
