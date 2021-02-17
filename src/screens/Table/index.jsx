@@ -9,13 +9,14 @@ import {
     addComment,
     removeItem
 } from '../../features/movies/movieSlice';
+
 import { updateBoard } from '../../functions';
 import { selectColor } from '../../features/colors/colors'
 import { Back, InnerDivs, Movies, Poster, Title, Info, Img, GlobalStyle, Category, Response, Header, HeaderHolder } from './styles'
 
 const Table = () => {
     const { toWatch, currentlyWatching, liked, disliked } = useSelector(selectCount);
-    const mode = useSelector(selectColor)
+    const light = useSelector(selectColor)
     const dispatch = useDispatch();
     const [movie, setMovie] = React.useState('')
 
@@ -92,8 +93,8 @@ const Table = () => {
                 {elements.map((element, index) => {
                     return <Droppable droppableId={element.name}>
                         {(provided, snapshot) => (
-                            <InnerDivs ref={provided.innerRef}>
-                                <HeaderHolder><Header index={index}>{element.description}</Header></HeaderHolder>
+                            <InnerDivs light={light} ref={provided.innerRef}>
+                                <HeaderHolder light={light}><Header light={light} index={index}>{element.description}</Header></HeaderHolder>
                                 {element.element.map((movie, index) => {
                                     return <Draggable
                                         key={movie?.Title}
@@ -101,7 +102,7 @@ const Table = () => {
                                         movie={movie}
                                         index={index}>
                                         {(provided, snapshot) => (
-                                            <Movies onDoubleClick={() => { setMovie({ ...movie, where: element.name, index }) }}
+                                            <Movies light={light} onDoubleClick={() => { setMovie({ ...movie, where: element.name, index }) }}
                                                 ref={provided.innerRef}
                                                 {...provided.draggableProps}
                                                 {...provided.dragHandleProps}>

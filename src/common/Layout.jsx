@@ -10,6 +10,9 @@ import {
 import { selectColor, toLightMode, toDarkMode } from '../features/colors/colors'
 import Sun from '../../src/images/sun.png'
 import Moon from '../../src/images/moon.png'
+import Home from '../../src/images/home.png'
+import Plus from '../../src/images/plus.png'
+
 
 const Background = styled.div`
 display:grid;
@@ -24,17 +27,23 @@ const Logout = styled.div`
 position: absolute;
 zIndex: 999999; 
 cursor: pointer;
-color:${props => props.light ? "#515887" : "#FFFFFFF"};
+color:${props => props.light ? "#515887" : "white"};
 right:20px;
 top:20px;
 
 `
 const IconHolder = styled.div`
 position: absolute; 
-width: 30px;
-height: 30px; 
+
 top: 15px; 
 left: 15px;
+display:grid;
+grid-auto-flow:column;
+img{
+    width:40px;
+    margin:0 10px;
+    cursor:pointer;
+}
 `
 
 
@@ -69,7 +78,9 @@ const Layout = ({ children }) => {
         if (user) {
             setUserLoggedIn(true)
             if (user.displayName) {
+
                 const data = await getUser(user.displayName)
+                console.log(data, '<---data')
                 dispatch(setAllItems(data || defaultData))
             }
         } else {
@@ -85,8 +96,10 @@ const Layout = ({ children }) => {
     return (
         <React.Fragment>
             {<IconHolder>{color
-                ? <img onClick={setLight} style={{ width: "100% " }} src={Moon} />
-                : <img onClick={setDark} style={{ width: "100% " }} src={Sun} />}
+                ? <img onClick={setLight} src={Moon} />
+                : <img onClick={setDark} src={Sun} />}
+                {userLoggedIn && <img onClick={() => { history.push('/table') }} src={Home} />}
+                {userLoggedIn && <img onClick={() => { history.push('/add-movies') }} src={Plus} />}
             </IconHolder>}
             {userLoggedIn && <Logout light={color} style={{ position: 'absolute', zIndex: 999999, cursor: 'pointer' }} onClick={logOut}>Logout</Logout>}
             <Background light={color}>{children}</Background>

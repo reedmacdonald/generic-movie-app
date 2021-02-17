@@ -28,7 +28,7 @@ width:100%;
 `
 
 export const Heading = styled.h1`
-color:white;
+color:${props => props.light ? "#515887" : "white"};
 font-size:36px;
 width:100%;
 padding:0;

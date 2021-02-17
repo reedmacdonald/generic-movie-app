@@ -16,16 +16,20 @@ border-radius:10px
 `
 export const Header = styled.h3`
 border-radius:10px;
-background:#383A56;
+background:${props => props.light ? "white" : "#383A56"};
 padding:12px 0;
 margin:10px 0;
 font-weight:600;
 font-size:16px;
 line-height:24px;
 color:${props => {
+
         switch (props.index) {
             case 0:
-                return 'white';
+                if (props.light) {
+                    return "#515887"
+                }
+                return "white"
             case 1:
                 return '#4DACF3';
             case 2:
@@ -37,15 +41,15 @@ color:${props => {
 `
 
 export const HeaderHolder = styled.div`
-border:10px solid #24243A;
+border:${props => props.light ? "10px solid #F7F6FA" : "10px solid #24243A"};
 border-left:0;
 border-right:0;
-background: #24243A;
+background: ${props => props.light ? "#F7F6FA" : "#24243A"};
 margin-top:0;
 top:0;
 `
 export const Movies = styled.div`
-display: grid;h
+display: grid;
 grid-template-columns: repeat(5, 1fr);
 grid-template-rows: repeat(3, 1fr);
 grid-column-gap: 0px;
@@ -53,9 +57,10 @@ grid-row-gap: 0px;
 max-height:13vh;
 margin:10px;
 border-radius:14px;
-background-color:#ECF1FA;
+background-color:${props => props.light ? "#ECF1FA" : "#ECF1FA"};
 text-overflow: ellipsis;
 overflow:hidden;
+box-shadow: ${props => props.light && "0px 4px 4px #ECECED"};
 
 `
 

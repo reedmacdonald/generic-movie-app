@@ -23,7 +23,7 @@ position:absolute;
 top:10px;
 right:10px;
 cursor:pointer;
-color:white;
+color:${props => props.light ? "#24243A" : 'white'};
 `
 
 
@@ -56,7 +56,7 @@ max-height:65vh;
 p{
     display:grid;
     place-items:start;
-    color:white;
+    color:${props => props.light ? "#24243A" : "white"};
     text-align:left;
 }
 `
@@ -67,7 +67,6 @@ max-height:65vh;
 
 *{
     text-align:left;
-    color:#FFFFFFFF;
     margin-top:0;
     margin-bottom:0;
 }
@@ -75,7 +74,7 @@ max-height:65vh;
 h4,h5,span{
     padding:0;
     margin-top:0;
-
+    color:${props => props.light ? "#515887" : "white"};
 }
 span{
     color:gold
@@ -86,6 +85,9 @@ span{
     grid-column-gap:50px;
     margin-top:0;
     width:50%;
+}
+#title{
+    color:${props => props.light ? "#4DACF3" : "white"}
 }
 `
 

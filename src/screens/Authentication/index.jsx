@@ -4,6 +4,8 @@ import firebase, { auth } from '../../firebase'
 import Login from './Login'
 import Register from './Register'
 import { Main, Holder } from './Components'
+import { useSelector } from 'react-redux'
+import { selectColor } from '../../features/colors/colors'
 
 
 
@@ -11,9 +13,10 @@ import { Main, Holder } from './Components'
 
 const Authentication = () => {
     const [isLogin, setIsLogin] = React.useState(true)
+    const light = useSelector(selectColor)
     const renderLogin = () => {
         return (
-            <Holder >
+            <Holder light={light} >
                 <div>Already a member?</div>
                 <div id='cta' onClick={() => { setIsLogin(!isLogin) }}>
                     Login
@@ -23,7 +26,7 @@ const Authentication = () => {
     }
     const renderSignUp = () => {
         return (
-            <Holder>
+            <Holder light={light}>
                 <div>Not a member?</div>
                 <div id='cta' onClick={() => { setIsLogin(!isLogin) }}>
                     Sign Up
@@ -32,7 +35,7 @@ const Authentication = () => {
         )
     }
     return (
-        <Main>
+        <Main light={light}>
             <React.Fragment>
                 {isLogin ? <Login /> : <Register />}
                 {isLogin ? renderSignUp() : renderLogin()}

@@ -18,7 +18,13 @@ export const signUp = async (email, password, displayName, callback) => {
     callback()
 }
 export const login = async (email, password, callback) => {
-    await auth.signInWithEmailAndPassword(email, password)
+    try {
+        await auth.signInWithEmailAndPassword(email, password)
+    }
+    catch (err) {
+        throw err
+    }
+
     callback()
 }
 
@@ -36,7 +42,10 @@ const db = firebase.firestore()
 
 export const updateBoard = (info) => {
     const user = firebase.auth().currentUser
-    user && db.collection("users").doc(user.displayName).set(info)
+    //ToDo:Figure out why this is necessary
+    let hasValue
+    Object.values(info).forEach((array) => { if (array.length > 0) { hasValue = true } })
+    hasValue && user && db.collection("users").doc(user.displayName).set(info)
 }
 export const getUser = async (displayName) => {
     const result = await db.collection("users").doc(displayName).get()

@@ -1,6 +1,6 @@
 import React from 'react'
 import { useSelector, useDispatch } from 'react-redux';
-import { useParams } from 'react-router-dom'
+import { useParams, useHistory } from 'react-router-dom'
 import MovieModal from './Modal'
 import {
     addToToWatch,
@@ -18,15 +18,21 @@ const OthersTable = () => {
     const [liked, setLiked] = React.useState([])
     const [disliked, setDisliked] = React.useState([])
     const { otherUser } = useParams()
-    const mode = useSelector(selectColor)
+    const light = useSelector(selectColor)
     const dispatch = useDispatch();
     const myMovies = useSelector(selectCount);
     const [movie, setMovie] = React.useState('')
+    const history = useHistory()
     React.useEffect(() => { getAndSet() }, [])
     React.useEffect(() => { saveBoard() }, [myMovies])
 
     const getAndSet = async () => {
-        const data = await getUser(otherUser)
+        let data = await getUser(otherUser)
+        if (!data) {
+            alert('This table does not seem to exist')
+            history.push('/');
+            return
+        }
         setToWatch(data.toWatch)
         setCurrentlyWatching(data.currentlyWatching)
         setLiked(data.liked)
@@ -66,14 +72,14 @@ const OthersTable = () => {
     return (
         <React.Fragment>
             <h1>You are looking at {otherUser}'s Board</h1>
-            <Back>
+            <Back light={light}>
                 <GlobalStyle />
-                {movie && <MovieModal otherBoardFunction={addToMyMovies} otherBoard dontShow movie={movie} exit={exit} />}
+                {movie && <MovieModal light={light} otherBoardFunction={addToMyMovies} otherBoard dontShow movie={movie} exit={exit} />}
                 {elements.map((element, index) => {
-                    return (<InnerDivs >
-                        <HeaderHolder><Header index={index}>{element.description}</Header></HeaderHolder>
+                    return (<InnerDivs light={light} >
+                        <HeaderHolder light={light}><Header light={light} index={index}>{element.description}</Header></HeaderHolder>
                         {element.element.map((movie, index) => {
-                            return (<Card movie={movie} setMovie={setMovie} />)
+                            return (<Card light={light} movie={movie} setMovie={setMovie} />)
                         })}
                     </InnerDivs>)
                 })
@@ -84,11 +90,11 @@ const OthersTable = () => {
 }
 export default OthersTable
 
-const Card = ({ movie, setMovie }) => {
-    return (<Movies onDoubleClick={() => { setMovie(movie) }}>
-        <Poster ><Img src={movie.Poster} /></Poster>
-        <Info>{movie.Actors}</Info>
-        <Title>{movie.Title}</Title>
+const Card = ({ movie, setMovie, light }) => {
+    return (<Movies light={light} onDoubleClick={() => { setMovie(movie) }}>
+        <Poster light={light} ><Img light={light} src={movie.Poster} /></Poster>
+        <Info light={light}>{movie.Actors}</Info>
+        <Title light={light}>{movie.Title}</Title>
         <Title />
     </Movies>)
 }

@@ -1,19 +1,21 @@
 import React from 'react'
 import styled from 'styled-components'
+
+
 export const Input = styled.input`
 width:100%;
-background:${props => props.light ? 'black' : '#383A56'};
+background:${props => props.light ? '#ECF1FA' : '#383A56'};
 color:${props => props.light ? 'black' : 'white'};
 padding:13px;
 border-radius:10px;
-border:${props => props.light ? '2px solid black' : '5px solid #383A56'};
+border:${props => props.light ? '1px solid #4DACF3' : '2px solid #383A56'};
 outline:none;
 `
 
 
 export const SecondaryInput = styled(Input)`
 background:transparent;
-border:1px solid white;
+border:1px solid ${props => props.light ? "#4DACF3" : "white"};
 `
 export const Button = styled.div`
 background-color:#4DACF3;
