@@ -1,9 +1,9 @@
 
 import React, { Fragment } from 'react'
 
-import styled, { createGlobalStyle } from 'styled-components'
-import { Modal, InnerModal, PosterHolder, LeftSide, RightSide, Ex } from "../Table/ModalStyle"
-import { Button, SecondaryButton } from '../../common/Components'
+import styled from 'styled-components'
+import { Modal, PosterHolder, LeftSide, RightSide, Ex } from "../../common/ModalStyle"
+import { Button } from '../../common/Components'
 
 const NewModal = styled(Modal)`
 padding-top:0
@@ -36,7 +36,6 @@ const MovieModal = ({ movie, onSave, exit, dontShow, otherBoard, otherBoardFunct
                 <div id='buttonHolder'>
                     <Button onClick={() => onSave(movie)}>Add to List</Button>
                 </div>
-
             </RightSide>
         </NewModal >
     )

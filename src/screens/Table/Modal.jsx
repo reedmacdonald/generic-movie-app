@@ -1,7 +1,5 @@
 import React, { Fragment } from 'react'
-
-import styled, { createGlobalStyle } from 'styled-components'
-import { Modal, InnerModal, PosterHolder, LeftSide, RightSide, Ex } from "./ModalStyle"
+import { Modal, PosterHolder, LeftSide, RightSide, Ex } from "../../common/ModalStyle"
 import { Button, SecondaryButton, SecondaryInput, Input } from '../../common/Components'
 
 

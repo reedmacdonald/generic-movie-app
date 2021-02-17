@@ -1,5 +1,5 @@
 import React from "react"
-import styled, { createGlobalStyle } from 'styled-components'
+import styled from 'styled-components'
 
 export const Modal = styled.div`
 position:absolute;
@@ -57,7 +57,6 @@ p{
     display:grid;
     place-items:start;
     color:white;
-    font-family:Lato;
     text-align:left;
 }
 `
@@ -69,7 +68,6 @@ max-height:65vh;
 *{
     text-align:left;
     color:#FFFFFFFF;
-    font-family:Lato;
     margin-top:0;
     margin-bottom:0;
 }

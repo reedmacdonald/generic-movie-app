@@ -28,7 +28,6 @@ width:100%;
 `
 
 export const Heading = styled.h1`
-font-family:Lato;
 color:white;
 font-size:36px;
 width:100%;

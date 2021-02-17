@@ -19,7 +19,6 @@ border-radius:10px;
 background:#383A56;
 padding:12px 0;
 margin:10px 0;
-font-family:Lato;
 font-weight:600;
 font-size:16px;
 line-height:24px;
@@ -57,6 +56,7 @@ border-radius:14px;
 background-color:#ECF1FA;
 text-overflow: ellipsis;
 overflow:hidden;
+
 `
 
 export const Poster = styled.div`
@@ -76,7 +76,6 @@ margin-top:0;
 margin-bottom:0;
 margin-left:10px;
 color:#4DACF3;
-font-family:Lato;
 font-size:16px;
 line-height:24px;
 font-weight:400;

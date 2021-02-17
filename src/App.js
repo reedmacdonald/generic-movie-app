@@ -11,9 +11,14 @@ import Layout from '../src/common/Layout'
 import Movies from './screens/Movies'
 import Table from './screens/Table'
 import OtherTable from './screens/Table/OthersTable'
+import { createGlobalStyle } from 'styled-components'
 import { Component } from "react";
 import { getUser } from '../src/functions'
 
+
+const Global = createGlobalStyle`
+font-family:Lato
+`
 const App = () => {
 
   return (

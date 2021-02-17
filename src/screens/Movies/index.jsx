@@ -12,7 +12,6 @@ import { Input, Button, SecondaryButton } from '../../common/Components'
 import Suggestions from './Suggestions'
 
 
-
 const MoviesHolder = styled.div`
 width:50%;
 border-radius:14px;
@@ -42,7 +41,6 @@ margin-top:30px;
 
 const H4 = styled.h4`
 text-align:center;
-font-family:Lato;
 font-weight:600;
 font-size:22px;
 font-height:33px;

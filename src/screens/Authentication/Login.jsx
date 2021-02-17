@@ -1,6 +1,4 @@
-import { isAsyncThunkAction } from '@reduxjs/toolkit'
 import React, { Fragment, useState } from 'react'
-import styled from 'styled-components'
 import { Input, Button } from '../../common/Components'
 import { login } from '../../functions'
 import { Heading } from './Components'

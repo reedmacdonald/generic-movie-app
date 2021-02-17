@@ -10,7 +10,7 @@ import {
     removeItem
 } from '../../features/movies/movieSlice';
 import { updateBoard } from '../../functions';
-import { toLightMode, toDarkMode, selectColor } from '../../features/colors/colors'
+import { selectColor } from '../../features/colors/colors'
 import { Back, InnerDivs, Movies, Poster, Title, Info, Img, GlobalStyle, Category, Response, Header, HeaderHolder } from './styles'
 
 const Table = () => {

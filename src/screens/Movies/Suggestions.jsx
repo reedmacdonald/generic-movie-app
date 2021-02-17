@@ -3,7 +3,6 @@ import styled from 'styled-components'
 import { suggestion } from '../../constants'
 
 const Box = styled.div`
- font-family:Lato;
  color:${props => props.light ? 'black' : 'white'};
  font-size:22px;
  text-align:left;

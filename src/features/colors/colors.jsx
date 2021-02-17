@@ -19,10 +19,6 @@ export const colorSlice = createSlice({
 
 export const { toDarkMode, toLightMode } = colorSlice.actions;
 
-
-
-
-
 export const selectColor = state => {
     return state.colors.darkMode
 };
