@@ -8,7 +8,7 @@ import {
 } from '../../features/movies/movieSlice';
 import { getUser, updateBoard } from '../../functions'
 import { selectColor } from '../../features/colors/colors'
-import { Back, InnerDivs, Movies, Poster, Title, Info, Img, GlobalStyle, Header, HeaderHolder } from './styles'
+import { Back, InnerDivs, Movies, Poster, Category, Response, Title, Info, Img, GlobalStyle, Header, HeaderHolder } from './styles'
 
 
 
@@ -92,9 +92,12 @@ export default OthersTable
 
 const Card = ({ movie, setMovie, light }) => {
     return (<Movies light={light} onDoubleClick={() => { setMovie(movie) }}>
-        <Poster light={light} ><Img light={light} src={movie.Poster} /></Poster>
-        <Info light={light}>{movie.Actors}</Info>
-        <Title light={light}>{movie.Title}</Title>
+        <Poster ><Img src={movie.Poster} /></Poster>
+        <Info>
+            <div><Category>Genre:</Category><Response>{movie.Genre}</Response></div>
+            <div><Category>Director:</Category><Response>{movie.Director}</Response></div>
+        </Info>
+        <Title>{movie.Title}</Title>
         <Title />
     </Movies>)
 }
